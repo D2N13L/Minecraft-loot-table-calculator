@@ -15,7 +15,6 @@ import javax.swing.*;
  */
 public class LootTableChance
 {
-
     public static void main(final String[] args)
     {
         final JFrame frame = new JFrame();
@@ -34,19 +33,18 @@ public class LootTableChance
         pane.add(new JLabel("What's your luck?"));
         pane.add(playerluckin);
 
-        final int option = JOptionPane.showConfirmDialog(frame, pane, "Please fill all the fields", 0, 1);
+        final int option = JOptionPane.showConfirmDialog(frame,pane,"Please fill all the fields",0,1);
         if (option == 0)
         {
             int totalSum = 0;
-            final FileDialog fd = new FileDialog(frame, "Choose the loot table", 0);
+            final FileDialog fd = new FileDialog(frame,"Choose the loot table",0);
             fd.setDirectory("C:\\");
             fd.setFile("*.json");
             fd.setVisible(true);
-            final String filename = fd.getDirectory() + fd.getFile();
             final Stack<String> weights = new Stack<>();
             try
             {
-                final Scanner scan = new Scanner(new File(filename));
+                final Scanner scan = new Scanner(new File(fd.getDirectory() + fd.getFile()));
                 while (scan.hasNextLine())
                 {
                     String nextLine = scan.nextLine();
