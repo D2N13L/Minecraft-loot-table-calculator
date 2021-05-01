@@ -22,7 +22,7 @@ public class LootTableChance
         final JTextField weightin = new JTextField(5);
         final JTextField quality = new JTextField(5);
         final JTextField playerluckin = new JTextField(5);
-        pane.setLayout(new GridLayout(0, 1, 3, 3));
+        pane.setLayout(new GridLayout(0,1,3,3));
         final JLabel label = new JLabel("Write the weight and quality of an item, and then write your luck. \n");
         label.setFont(new Font("Arial", 1, 15));
         pane.add(label);
@@ -62,9 +62,9 @@ public class LootTableChance
             {
                 totalSum += Integer.parseInt(weights.pop());
             }
-            final double chance = 100 * Math.floor(Integer.parseInt(weightin.getText()) + Integer.parseInt(quality.getText()) * Double.parseDouble(playerluckin.getText())) / totalSum;
+            final double chance = 100*Math.floor(Double.parseDouble(weightin.getText())+Double.parseDouble(quality.getText())*Double.parseDouble(playerluckin.getText()))/totalSum;
             final DecimalFormat df = new DecimalFormat("#.##");
-            JOptionPane.showMessageDialog(pane, "The weight sum of the " + fd.getFile() + " loot table is:" + totalSum + "\n The chance of getting this item is: " + df.format(chance) + "%");
+            JOptionPane.showMessageDialog(pane,"The weight sum of the "+fd.getFile()+" loot table is:"+totalSum+"\n The chance of getting this item is: "+df.format(chance)+"%");
             System.exit(0);
         } else
         {
