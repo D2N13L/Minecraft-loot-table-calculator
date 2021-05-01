@@ -36,7 +36,7 @@ public class LootTableChance
         final int option = JOptionPane.showConfirmDialog(frame,pane,"Please fill all the fields",0,1);
         if (option == 0)
         {
-            int totalSum = 0;
+            double totalSum = 0;
             final FileDialog fd = new FileDialog(frame,"Choose the loot table",0);
             fd.setDirectory("C:\\");
             fd.setFile("*.json");
@@ -63,8 +63,9 @@ public class LootTableChance
                 totalSum += Integer.parseInt(weights.pop());
             }
             final double chance = 100*Math.floor(Double.parseDouble(weightin.getText())+Double.parseDouble(quality.getText())*Double.parseDouble(playerluckin.getText()))/totalSum;
+            
             final DecimalFormat df = new DecimalFormat("#.##");
-            JOptionPane.showMessageDialog(pane,"The weight sum of the "+fd.getFile()+" loot table is:"+totalSum+"\n The chance of getting this item is: "+df.format(chance)+"%");
+            JOptionPane.showMessageDialog(pane,"The weight sum of the "+fd.getFile()+" loot table is: "+(int)totalSum+"\n The chance of getting this item is: "+df.format(chance)+"%");
             System.exit(0);
         } else
         {
