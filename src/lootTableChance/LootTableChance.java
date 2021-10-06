@@ -33,10 +33,8 @@ public class LootTableChance {
         pane.add(quality);
         pane.add(new JLabel("What's your luck?"));
         pane.add(playerluckin);
-
         final int option = JOptionPane.showConfirmDialog(frame, pane, "Please fill all the fields", 0, 1);
         if (option == 0) {
-
             double totalSum = 0;
             final FileDialog fd = new FileDialog(frame, "Choose the loot table", 0);
             fd.setDirectory("C:\\");
@@ -50,13 +48,17 @@ public class LootTableChance {
                     if (nextLine.contains("weight")) {
                         nextLine = nextLine.replaceAll("[^0-9]+", "");
                         weights.push(nextLine);
-                    }
-                    if (nextLine.contains("rolls") && !rolls) {
+                    }                      
+                    if (nextLine.contains("rolls") && !nextLine.contains("bonus")) {
+                        rolls = false;
+                        min = -1;max = -1;
                         while (!rolls) {
                             if (nextLine.contains("min")) {
+                                System.out.println(nextLine);
                                 min = Integer.parseInt(nextLine.replaceAll("[^1-9]+", ""));
                             }
                             if (nextLine.contains("max")) {
+                                System.out.println(nextLine);
                                 max = Integer.parseInt(nextLine.replaceAll("[^1-9]+", ""));
                             }
                             if (min < 0 || max < 0) {
@@ -65,7 +67,6 @@ public class LootTableChance {
                                 rolls = true;
                             }
                         }
-
                     }
                 }
             } catch (FileNotFoundException ex) {
@@ -74,6 +75,7 @@ public class LootTableChance {
             while (!weights.empty()) {
                 totalSum += Integer.parseInt(weights.pop());
             }
+            System.out.println("min: "+min+" max: "+max);
             final double chance = 100 * Math.floor(Double.parseDouble(weightin.getText()) + Double.parseDouble(quality.getText()) * Double.parseDouble(playerluckin.getText())) / totalSum;
             final double actual_chance = ((max + min) / 2) * Math.pow(chance, 1) * Math.pow(1 - (chance / 100), ((max + min) / 2) - 1);
             final DecimalFormat df = new DecimalFormat("#.##");
